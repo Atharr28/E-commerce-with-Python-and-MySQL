@@ -1,10 +1,12 @@
+from services import db
+
 def mode_pembeli():
     print("Berhasil Masuk Mode Pembeli")
     while True:
         print("\n1.Membeli Barang\n2.Keluar")
         pilihan = input("\nPilih Menu (atau ketik (keluar) untuk keluar dari mode pembeli) : ")
         if pilihan.lower() == '1':
-            ()
+            membeli_barang()
         elif pilihan.lower() == '2':
             break
         else:
@@ -12,20 +14,15 @@ def mode_pembeli():
 
 
 def membeli_barang():
-    while True: 
-        user_milih = input("\nMasukkan nama produk yang ingin dibeli atau keluar dengan mengetik (keluar) : ").lower()
-        if user_milih == "keluar":
-            break
-        if user_milih in produk:
-            jumlah = int(input(f"Berapa Banyak Pilihan yang ingin dibeli : "))
-            if jumlah <= produk[user_milih]["stok"]:
-                produk[user_milih]["stok"] -= jumlah
-                total += jumlah * produk[user_milih]["harga"]
-                print(f"{jumlah} {user_milih} Di tambahkan ke kerangjang. Total : Rp.{total}")
-            else:
-                print("Maaf,stok tidak mencukupi")
-        else:
-            print("Mohon maaf produk tidak tersedia saat ini")
+    print(f"Daftar barang yang tersedia")
 
-    print(f"Total belanja anda {total}")
-    print("Terima kasih sudah berbelanja 😀")
+    barang_list = db.get_all_items()
+
+    for item in barang_list:
+        print(f"Kode Barang : {item[1]} | Nama Barang : {item[2]:<10} | Harga Barang : {item[3]} | Stok Barang : {item[4]}")
+    
+    total = 0
+    while True:
+        nama_barang = input("Masukan nama barang : ")
+        item = db.find_item(nama_barang)
+        jumlah_stok = int(input("Masukan Jumlah Stok : "))
