@@ -20,13 +20,14 @@ def insert_item(kode_barang, nama_barang, harga_barang, stok_barang):
         return("Data gagal di tambahkan")
 
 
-#Command Untuk Mengedit Barang
+#Command Untuk Menemukan Barang
 def find_item(kode_barang):
     cursor = db.cursor()
     query = "SELECT * FROM tabel_barang WHERE kode_barang = %s"
     cursor.execute(query, (kode_barang,))
     return cursor.fetchone()
 
+#Command Untuk Mengedit Barang
 def update_item(kode_barang, nama_barang, harga_barang, stok_barang):
     cursor = db.cursor()
     query = """
@@ -52,6 +53,28 @@ def get_all_items():
     cursor.execute(query)
     return cursor.fetchall()
 
-def take_item():
+#Command Proses terjadinya pengurangan stok 
+def take_item(nama_barang,jumlah_beli):
     cursor = db.cursor()
-    
+    query = "SELECT * FROM tabel_barang WHERE nama_barang  = %s"
+    cursor.execute(query, (nama_barang,))
+
+    result = cursor.fetchone()
+
+    if result:
+        current_stock = int(result[4]) 
+        if current_stock >= jumlah_beli:
+            
+            #Command untuk mengurangi stok
+            update = "UPDATE tabel_barang SET stok_barang = stok_barang - %s WHERE nama_barang = %s"
+            cursor.execute(update, (jumlah_beli, nama_barang))
+            db.commit()
+
+            #Command jika stok berhasil di kurangi
+            print(f"Barang '{nama_barang}' berhasil Dibeli. Stok tersisa: {current_stock - jumlah_beli}.")
+        else:
+            print(f"Stok tidak mencukupi. Stok saat ini hanya {current_stock}.")
+    else:
+        print(f"Barang dengan nama '{nama_barang}' tidak ditemukan.")
+
+    cursor.close()

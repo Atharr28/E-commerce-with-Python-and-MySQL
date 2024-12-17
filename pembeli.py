@@ -1,4 +1,5 @@
 from services import db
+from services.db import take_item
 
 def mode_pembeli():
     print("Berhasil Masuk Mode Pembeli")
@@ -20,9 +21,14 @@ def membeli_barang():
 
     for item in barang_list:
         print(f"Kode Barang : {item[1]} | Nama Barang : {item[2]:<10} | Harga Barang : {item[3]} | Stok Barang : {item[4]}")
-    
-    total = 0
+
+        
     while True:
-        nama_barang = input("Masukan nama barang : ")
-        item = db.find_item(nama_barang)
-        jumlah_stok = int(input("Masukan Jumlah Stok : "))
+        nama_barang = input("Masukan nama barang : ").lower()
+        
+        try:
+            jumlah_beli = int(input("Masukan Jumlah jumlah beli : "))
+            db.take_item(nama_barang,jumlah_beli)
+        except ValueError :
+            print("Wajib memasukan angka !!! ")
+        

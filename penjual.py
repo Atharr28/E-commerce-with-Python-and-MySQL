@@ -3,7 +3,7 @@ from services import db
 def mode_penjual():
     print("Berhasil Masuk Mode Penjual")
     while True:
-        print("\n1. Menambahkan Barang\n2. Edit Barang\n3. Keluar")
+        print("\nMenu Penjual \n1. Menambahkan Barang\n2. Edit Barang\n3. Keluar")
         pilihan = input("\nPilih Menu (ketik 'keluar' untuk keluar dari mode pembeli) : ")
         if pilihan.lower() == '1':
             menambahkan_barang()
