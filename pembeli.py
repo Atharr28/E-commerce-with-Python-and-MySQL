@@ -1,6 +1,7 @@
 from services import db
 from services.db import take_item
 
+#Menu utama ketika user milih mode pembeli
 def mode_pembeli():
     print("Berhasil Masuk Mode Pembeli")
     while True:
@@ -13,7 +14,7 @@ def mode_pembeli():
         else:
             print("Sepertinya yang anda pilih di luar menu :) harap masukan yang sudah disediakan menu")
 
-
+#Command untuk mme
 def membeli_barang():
     print(f"Daftar barang yang tersedia")
 

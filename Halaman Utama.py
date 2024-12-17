@@ -2,6 +2,7 @@ import time
 from pembeli import mode_pembeli
 from penjual import mode_penjual
 
+# Fungsi yang pertama kali muncul ketika program dijalankan (Jantung dari aplikasi)
 def menu_utama():
     print("==== Selama Datang Di BuyAndGo ===")
     print("\n1. Pembeli\n2. Penjual\n3. Matikan Program")

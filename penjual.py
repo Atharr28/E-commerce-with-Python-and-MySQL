@@ -1,5 +1,6 @@
 from services import db
 
+#Menu utama ketika user memilih mode penjual
 def mode_penjual():
     print("Berhasil Masuk Mode Penjual")
     while True:
@@ -15,7 +16,7 @@ def mode_penjual():
             print("Sepertinya yang anda pilih di luar menu :) harap masukan yang sudah disediakan menu")
 
 
-# Command untuk menambahkan barang (menambahkan_barang)
+# Fungsi ini untuk menambahkan barang (menambahkan_barang)
 def menambahkan_barang():
     kode_barang = input('kode Barang :')
     nama_barang = input('Nama Barang :')
@@ -26,7 +27,7 @@ def menambahkan_barang():
     print(save)
 
 
-# Command untuk mengedit barang (edit)
+# Fungsi untuk mengedit barang (edit)
 def edit_barang():
     print(f"Dafter barang yang tersedia")
     
