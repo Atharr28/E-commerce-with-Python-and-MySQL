@@ -29,6 +29,7 @@ def membeli_barang():
         try:
             jumlah_beli = int(input("Masukan Jumlah jumlah beli : "))
             db.take_item(nama_barang,jumlah_beli)
+            return
         except ValueError :
             print("Wajib memasukan angka !!! ")
         

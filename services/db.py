@@ -62,7 +62,9 @@ def take_item(nama_barang,jumlah_beli):
     result = cursor.fetchone()
 
     if result:
-        current_stock = int(result[4]) 
+        current_stock = result[4]
+        harga_barang = result[3]
+
         if current_stock >= jumlah_beli:
             
             #Command untuk mengurangi stok
@@ -70,11 +72,14 @@ def take_item(nama_barang,jumlah_beli):
             cursor.execute(update, (jumlah_beli, nama_barang))
             db.commit()
 
-            #Command jika stok berhasil di kurangi
-            print(f"Barang '{nama_barang}' berhasil Dibeli. Stok tersisa: {current_stock - jumlah_beli}.")
+            #Command untuk bukti berhasil atau tidaknya 
+            total_harga = jumlah_beli * harga_barang
+            print(f"Barang '{nama_barang}' berhasil Dibeli. Dengan harga Rp. {total_harga}. Stok tersisa: {current_stock - jumlah_beli}.")
+            return True
         else:
             print(f"Stok tidak mencukupi. Stok saat ini hanya {current_stock}.")
     else:
         print(f"Barang dengan nama '{nama_barang}' tidak ditemukan.")
+
 
     cursor.close()
