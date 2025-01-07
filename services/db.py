@@ -68,15 +68,18 @@ def take_item(nama_barang,jumlah_beli):
 
         if current_stock >= jumlah_beli:
             
+            #Command untuk hitung total harga 
+            total_harga = float(jumlah_beli * harga_barang)
+            print(f"Total harga untuk {nama_barang} adalah Rp. {total_harga}")
+
             #Command untuk mengurangi stok
             update = "UPDATE tabel_barang SET stok_barang = stok_barang - %s WHERE nama_barang = %s"
             cursor.execute(update, (jumlah_beli, nama_barang))
             db.commit()
 
             #Command untuk bukti berhasil atau tidaknya 
-            total_harga = jumlah_beli * harga_barang
             print(f"Barang '{nama_barang}' berhasil Dibeli. Dengan harga Rp. {total_harga}. Stok tersisa: {current_stock - jumlah_beli}.")
-            return True
+            return total_harga
         else:
             print(f"Stok tidak mencukupi. Stok saat ini hanya {current_stock}.")
     else:
