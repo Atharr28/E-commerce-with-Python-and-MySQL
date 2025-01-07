@@ -28,6 +28,13 @@ def find_item(kode_barang):
     cursor.execute(query, (kode_barang,))
     return cursor.fetchone()
 
+# Fungsi ini untuk memanggil barang yang stoknya lebih dari 0
+def get_available_item():
+    cursor= db.cursor()
+    query = "SELECT * FROM tabel_barang WHERE stok_barang > 0"
+    cursor.execute(query)
+    return cursor.fetchall()
+
 # Fungsi ini untuk mengedit barang 
 def update_item(kode_barang, nama_barang, harga_barang, stok_barang):
     cursor = db.cursor()
@@ -69,7 +76,7 @@ def take_item(nama_barang,jumlah_beli):
         if current_stock >= jumlah_beli:
             
             #Command untuk hitung total harga 
-            total_harga = float(jumlah_beli * harga_barang)
+            total_harga = jumlah_beli * harga_barang
             print(f"Total harga untuk {nama_barang} adalah Rp. {total_harga}")
 
             #Command untuk mengurangi stok
@@ -78,7 +85,7 @@ def take_item(nama_barang,jumlah_beli):
             db.commit()
 
             #Command untuk bukti berhasil atau tidaknya 
-            print(f"Barang '{nama_barang}' berhasil Dibeli. Dengan harga Rp. {total_harga}. Stok tersisa: {current_stock - jumlah_beli}.")
+            print(f"Barang '{nama_barang}' berhasil Dibeli. Dengan harga Rp. {total_harga} Stok tersisa: {current_stock - jumlah_beli}")
             return total_harga
         else:
             print(f"Stok tidak mencukupi. Stok saat ini hanya {current_stock}.")

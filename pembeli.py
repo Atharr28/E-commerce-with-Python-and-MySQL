@@ -15,17 +15,21 @@ def mode_pembeli():
             print("Harap memasukan angka [1, 2] !!!")
 
 
-#Command untuk mme
+#Command untuk membeli barang
 def membeli_barang():
-    print(f"Daftar barang yang tersedia")
-
-    barang_list = db.get_all_items()
-
-    for item in barang_list:
-        print(f"Kode Barang : {item[1]} | Nama Barang : {item[2]:<10} | Harga Barang : {item[3]} | Stok Barang : {item[4]}")
-
     while True:
-        nama_barang = input("Masukan nama barang (atau ketik keluar):  ").lower()
+        print("\n" + "=" *80)
+        print(f"Daftar barang yang tersedia")
+        print("=" *80)
+
+        barang_list = db.get_available_item()
+        
+        for item in barang_list:
+            print(f"\nNama Barang : {item[2]:<10} | Harga Barang : {item[3]} | Stok Barang : {item[4]}")
+
+        print("-" * 80)
+
+        nama_barang = input("\nMasukan nama barang (atau ketik keluar):  ").lower()
         if nama_barang == "keluar" or nama_barang == "KELUAR" :
             return
         try:
@@ -50,14 +54,14 @@ def pembayaran(total_harga):
     while True:
         try:
             # Meminta input dari pembeli
-            uang_dibayar = float(input(f"Total harga adalah Rp {round(total_harga,2)}. Masukkan jumlah uang yang dibayar: Rp "))
+            uang_dibayar = float(input(f"Total harga adalah Rp {round(total_harga,2)} Masukkan jumlah uang yang dibayar: Rp "))
             
             if uang_dibayar >= total_harga:
-                kembalian = round(uang_dibayar - total_harga)
+                kembalian = float(uang_dibayar - total_harga)
                 print(f"Pembayaran berhasil! Kembalian Anda: Rp {kembalian}")
                 return True
             else:
-                print(f"Uang yang Anda bayarkan kurang. Kurang Rp {round(total_harga - uang_dibayar,2)}.")
+                print(f"Uang yang Anda bayarkan kurang. Kurang Rp {(total_harga - uang_dibayar)}.")
                 return False
         except ValueError:
             print("Masukkan jumlah uang yang valid!")
