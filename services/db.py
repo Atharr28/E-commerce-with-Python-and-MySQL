@@ -81,6 +81,4 @@ def take_item(nama_barang,jumlah_beli):
             print(f"Stok tidak mencukupi. Stok saat ini hanya {current_stock}.")
     else:
         print(f"Barang dengan nama '{nama_barang}' tidak ditemukan.")
-
-
     cursor.close()
