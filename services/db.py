@@ -81,4 +81,10 @@ def take_item(nama_barang,jumlah_beli):
             print(f"Stok tidak mencukupi. Stok saat ini hanya {current_stock}.")
     else:
         print(f"Barang dengan nama '{nama_barang}' tidak ditemukan.")
+
+def delete_item(kode_barang):
+    cursor = db.cursor()
+    query = "DELETE FROM tabel_barang WHERE kode_Barang = %s"
+    cursor.execute(query, (kode_barang,))
+    db.commit()
     cursor.close()

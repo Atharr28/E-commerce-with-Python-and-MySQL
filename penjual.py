@@ -1,16 +1,19 @@
 from services import db
 
+
 #Menu utama ketika user memilih mode penjual
 def mode_penjual():
     print("Berhasil Masuk Mode Penjual")
     while True:
-        print("\nMenu Penjual \n1. Menambahkan Barang\n2. Edit Barang\n3. Keluar")
+        print("\nMenu Penjual \n1. Menambahkan Barang\n2. Edit Barang\n3. Hapus Barang\n4. Keluar")
         pilihan = input("\nPilih Menu (ketik 'keluar' untuk keluar dari mode pembeli) : ")
         if pilihan.lower() == '1':
             menambahkan_barang()
         elif pilihan.lower() == '2':
             edit_barang()
         elif pilihan.lower() == '3':
+            hapus_barang()
+        elif pilihan.lower() == '4':
             break
         else:
             print("Sepertinya yang anda pilih di luar menu :) harap masukan yang sudah disediakan menu")
@@ -53,3 +56,26 @@ def edit_barang():
 
         # Update data barang
         db.update_item(kode_barang, nama_barang,harga_barang,stok_barang )
+        break
+
+def hapus_barang():
+    print(f"List barang yang tersedia")
+
+    barang = db.get_all_items()
+
+    for item in barang:
+        print(f"\nKode Barang : {item[1]} | Nama Barang : {item[2]:<10} | Harga Barang : {item[3]} | Stok Barang : {item[4]}")
+
+        while True:
+            kode_barang = input("\nMasukan kode barang yang ingin di hapus (atau ketik keluar): ")
+            item = db.find_item(kode_barang)
+
+            if kode_barang == "keluar" or kode_barang == "KELUAR":
+                break
+
+            if item:
+                db.delete_item(kode_barang)
+                print(f"barang dengan kode {kode_barang} berhasil di hapus ")
+                break
+            else:
+                print(f"Barang dengan kode {kode_barang} tidak ditemukan")

@@ -4,7 +4,7 @@ from penjual import mode_penjual
 
 # Fungsi yang pertama kali muncul ketika program dijalankan (Jantung dari aplikasi)
 def menu_utama():
-    print("==== Selama Datang Di BuyAndGo ===")
+    print("\n==== Selama Datang Di BuyAndGo ===")
     print("\n1. Pembeli\n2. Penjual\n3. Matikan Program")
 
 while True:
@@ -21,5 +21,7 @@ while True:
             time.sleep(1)
         print("Terima Kasih sudah menggunakan BuyAndGo")
         break
+    elif jwbu.isdigit() and int (jwbu) not in [1,2,3]:
+        print("Harap masukan angka yang sudah disediakan [1, 2, 3]")
     else:
         print("!!! Harap masukan angka !!!")
