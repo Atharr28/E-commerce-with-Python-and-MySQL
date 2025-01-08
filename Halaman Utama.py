@@ -10,11 +10,16 @@ def menu_utama():
 while True:
     menu_utama()
     jwbu = input("\nSilahkan Pilih : ")
-    if jwbu == '1':
+    if jwbu.lower() in ["Pembeli", "1"]:
         mode_pembeli()
-    elif jwbu =='2':
-        mode_penjual()
-    elif jwbu =='3':
+    elif jwbu.lower() in ["Penjual","2"]: 
+        print("Masukan password untuk ke mode penjual")
+        password = input("Password: ")
+        if password.lower() == "admin123":
+            mode_penjual()
+        else:
+            print("Password salah! akses di tolak")    
+    elif jwbu.lower() in ["keluar","3"]:
         print("Keluar Dari Program....")
         for i in range (3,0,-1):
             print(i, end="\n")

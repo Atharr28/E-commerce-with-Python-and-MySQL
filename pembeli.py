@@ -53,12 +53,20 @@ def membeli_barang():
 def pembayaran(total_harga):
     while True:
         try:
+            
             # Meminta input dari pembeli
-            uang_dibayar = float(input(f"Total harga adalah Rp {round(total_harga,2)} Masukkan jumlah uang yang dibayar: Rp "))
+            # alamat user 
+            nama = input("Masukan nama lengkap : ")
+            alamat = input("Masukan alamat : ")
+            notelp = input("Masukan nomer telfon : ")
+            uang_dibayar = int(input(f"Total harga adalah Rp {round(total_harga,2)} Masukkan jumlah uang yang dibayar: Rp "))
             
             if uang_dibayar >= total_harga:
-                kembalian = float(uang_dibayar - total_harga)
+                kembalian = int(uang_dibayar - total_harga)
                 print(f"Pembayaran berhasil! Kembalian Anda: Rp {kembalian}")
+                print("Barang ini atas nama : ",nama)
+                print("Dengan alamat : ",alamat)
+                print("No Telfon : ",notelp)
                 return True
             else:
                 print(f"Uang yang Anda bayarkan kurang. Kurang Rp {(total_harga - uang_dibayar)}.")
