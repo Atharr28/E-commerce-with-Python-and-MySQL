@@ -61,12 +61,23 @@ def get_all_items():
     cursor.execute(query)
     return cursor.fetchall()
 
+def start_transaction():
+    if db.in_transaction:  
+        db.rollback()      
+    db.start_transaction()
+
+
+def commit_transaction():
+    db.commit()
+
+def rollback_transaction():
+    db.rollback()
+
 # Fungsi yang digunakan untuk mengurangi stok ! 
 def take_item(nama_barang,jumlah_beli):
     cursor = db.cursor()
     query = "SELECT * FROM tabel_barang WHERE nama_barang  = %s"
     cursor.execute(query, (nama_barang,))
-
     result = cursor.fetchone()
 
     if result:
@@ -82,16 +93,18 @@ def take_item(nama_barang,jumlah_beli):
             #Command untuk mengurangi stok
             update = "UPDATE tabel_barang SET stok_barang = stok_barang - %s WHERE nama_barang = %s"
             cursor.execute(update, (jumlah_beli, nama_barang))
-            db.commit()
 
             #Command untuk bukti berhasil atau tidaknya 
             print(f"Barang '{nama_barang}' berhasil Dibeli. Dengan harga Rp. {total_harga} Stok tersisa: {current_stock - jumlah_beli}")
             return total_harga
         else:
             print(f"Stok tidak mencukupi. Stok saat ini hanya {current_stock}.")
+            rollback_transaction()
     else:
         print(f"Barang dengan nama '{nama_barang}' tidak ditemukan.")
-
+        rollback_transaction()
+    
+# Fungsi untuk menghapus barang
 def delete_item(kode_barang):
     cursor = db.cursor()
     query = "DELETE FROM tabel_barang WHERE kode_Barang = %s"

@@ -47,11 +47,18 @@ def edit_barang():
         print(f"Kode Barang : {item[1]} | Nama Barang : {item[2]:<10} | Harga Barang : {item[3]} | Stok Barang : {item[4]}")
 
     while True:
-        kode_barang = input("\nMasukan kode barang yang akan diubah : ")
-        item = db.find_item (kode_barang)  # Mengambil item berdasarkan kode_barang
+        kode_barang = input("\nMasukan kode barang yang akan diubah (atau ketik keluar): ")
+        if kode_barang.lower()== "keluar":
+            break
+        item = db.find_item (kode_barang)  # Mengambil item berdasarkan kode_barang]
 
+        if item is None:
+            print(F"Barang dengan kode {kode_barang} tidak ditemukan")
+            continue
+        else:
+            print(F"barang dengan kode {kode_barang} Ditemukan ")
         if item:
-            print("\nBarang yang tersedia saat ini:")
+            print("\nBerikut informasi barang :")
             print(f"Nama barang : {item[2]}")
             print(f"Harga barang : {item[3]}")
             print(f"Stok barang : {item[4]}")
@@ -79,7 +86,7 @@ def hapus_barang():
 
         if kode_barang == "keluar" or kode_barang == "KELUAR":
             break
-
+        
         if item:
             db.delete_item(kode_barang)
             print(f"barang dengan kode {kode_barang} berhasil di hapus ")
